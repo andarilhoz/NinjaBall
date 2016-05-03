@@ -48,7 +48,6 @@ public class Screen extends JPanel{
     public void addToFrame(Bola b){
         bolas.add(b);
         bolasG.add(b.getGraphic());
-        System.out.println("Bola Adicionada");
     }
   
     public void addJPanel(JPanel jp){
