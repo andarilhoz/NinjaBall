@@ -32,29 +32,21 @@ public class Game {
     2 - 4
     4 - 6
     6 - 8 
-*/        
-        for(int t=0;t<cores;t++){
-            ArrayList<Bola> bolaCore = new ArrayList<Bola>(bolas.subList(t*bolasPorCores,(t*bolasPorCores)+bolasPorCores));
-            for(int b=0;b<bolaCore.size();b++)
-                System.out.println("Bola: "+ bolaCore.get(b).identifier + " Adicionada ao core: "+t);
-            th.add(new Thread(new Core(bolaCore,tela),"T"+String.valueOf(t)));
-            //th.get(t).start();
-        }
+*/       
+       th.add(new Thread(new Core(bolas,tela,0),"T"+String.valueOf(0)));
+       th.get(0).start();
+ 
+      //  for(int t=0;t<cores;t++){
+      //      ArrayList<Bola> bolaCore = new ArrayList<Bola>(bolas.subList(t*bolasPorCores,(t*bolasPorCores)+bolasPorCores));
+      //      for(int b=0;b<bolaCore.size();b++)
+      //          System.out.println("Bola: "+ bolaCore.get(b).identifier + " Adicionada ao core: "+t);
+      //      th.add(new Thread(new Core(bolaCore,tela,t),"T"+String.valueOf(t)));
+      //      th.get(t).start();
+      //  }
 
         while(true){
             tela.repaint();
             Thread.sleep(4);
-           /* for(int t=0;t<th.size();t++){
-                try{
-                    synchronized(th.get(t)){
-                        th.get(t).notify();
-                        Thread.sleep(4);
-                        th.get(t).wait();          
-                    }
-                }catch(Exception e ){
-                    e.printStackTrace();
-                }
-            }*/
         }
     }
 
