@@ -10,7 +10,6 @@ public class Bola{
     public double x;
     public double y;
     private int range; 
-    public int identifier;
     public  boolean direction;
     private Color color;
     private boolean alive;
@@ -18,11 +17,10 @@ public class Bola{
     private Ellipse2D bolaG;
     private double speed = 0.05;
 
-    public Bola (int id, int lifes,int screenX, int screenY){
-        this.identifier = id;
+    public Bola (int lifes,int screenX, int screenY){
         Random r = new Random();
-        this.x =  r.nextDouble()*screenX;
-        this.y =  r.nextDouble()*screenY;
+        this.x =  r.nextDouble()*screenX/2;
+        this.y =  r.nextDouble()*screenY/2;
         this.direction = r.nextBoolean();
         this.setColor();
         this.alive = true;
@@ -39,8 +37,9 @@ public class Bola{
         this.bolaG.setFrame(this.x,this.y,30,30);
     }
     
+    
     public void setColor(){
-        Random color = new Random(identifier);
+        Random color = new Random();
         int R = color.nextInt(256);
         int G = color.nextInt(256);
         int B = color.nextInt(256);
@@ -55,7 +54,7 @@ public class Bola{
     }
     
     public void destroyBall(){
-        this.x = 0+(this.identifier*35);
+        this.x = 0;
         this.y = 0;
         this.speed = 0;
     } 

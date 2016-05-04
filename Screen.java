@@ -20,7 +20,6 @@ public class Screen extends JPanel{
     private int screenY;
     private JFrame frame;
     private ArrayList<Bola> bolas = new ArrayList<Bola>();    
-    private ArrayList<Ellipse2D> bolasG = new ArrayList<>();
 
     public Screen(int screenSizeX,int screenSizeY){
         screenX = screenSizeX;
@@ -35,10 +34,9 @@ public class Screen extends JPanel{
             @Override
             public void mouseClicked(MouseEvent me){
                 super.mouseClicked(me);
-                for(Ellipse2D s: bolasG){
-                    if(s.contains(me.getPoint())){
-                        int clicked = bolasG.indexOf(s);
-                        bolas.get(clicked).destroyBall();
+                for(Bola s: bolas){
+                    if(s.getGraphic().contains(me.getPoint())){
+                        s.destroyBall();
                     }
                 }
             }
@@ -47,7 +45,6 @@ public class Screen extends JPanel{
 
     public void addToFrame(Bola b){
         bolas.add(b);
-        bolasG.add(b.getGraphic());
     }
   
     public void addJPanel(JPanel jp){
@@ -58,6 +55,8 @@ public class Screen extends JPanel{
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0,0,getWidth(),getHeight()); 
         for(int i=0;i<bolas.size();i++){
             g2d.setPaint(bolas.get(i).getColor());
             g2d.fill(bolas.get(i).getGraphic());
