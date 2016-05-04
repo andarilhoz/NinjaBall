@@ -19,8 +19,8 @@ public class Bola{
 
     public Bola (int lifes,int screenX, int screenY){
         Random r = new Random();
-        this.x =  r.nextDouble()*screenX/2;
-        this.y =  r.nextDouble()*screenY/2;
+        this.x =  (r.nextDouble()*screenX/3)+ (r.nextDouble()*screenX/2) ;
+        this.y =  (r.nextDouble()*screenY/3)+ (r.nextDouble()*screenY/2);
         this.direction = r.nextBoolean();
         this.setColor();
         this.alive = true;

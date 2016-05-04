@@ -1,9 +1,9 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.text.DecimalFormat;
 
 public class Core implements Runnable{
     private int id;
-    private ArrayList<Bola> bolas = new ArrayList<Bola>();
+    private LinkedList<Bola> bolas = new LinkedList<Bola>();
     private Screen tela;
     private long startTime;   
     private long lastBall; 
@@ -29,10 +29,11 @@ public class Core implements Runnable{
                 tela.addToFrame(b);
                 lastBall = thisTime;
             }
-                 
-            for(int a = 0;a<this.bolas.size();a++){
-                this.bolas.get(a).moveBall();
-            }
+
+            for(Bola b: bolas){
+                b.moveBall();
+            }     
+            
             try{
                 Thread.sleep(4);
             }catch(Exception e){

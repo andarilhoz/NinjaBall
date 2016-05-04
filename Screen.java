@@ -6,8 +6,9 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Collections;
 
 import java.awt.geom.Ellipse2D;
 
@@ -19,7 +20,7 @@ public class Screen extends JPanel{
     private int screenX;
     private int screenY;
     private JFrame frame;
-    private ArrayList<Bola> bolas = new ArrayList<Bola>();    
+    private List<Bola> bolas = Collections.synchronizedList(new LinkedList());    
 
     public Screen(int screenSizeX,int screenSizeY){
         screenX = screenSizeX;
@@ -34,9 +35,11 @@ public class Screen extends JPanel{
             @Override
             public void mouseClicked(MouseEvent me){
                 super.mouseClicked(me);
-                for(Bola s: bolas){
-                    if(s.getGraphic().contains(me.getPoint())){
-                        s.destroyBall();
+                synchronized(bolas){
+                    for(Bola s: bolas){
+                        if(s.getGraphic().contains(me.getPoint())){
+                            s.destroyBall();
+                        }
                     }
                 }
             }
@@ -57,9 +60,11 @@ public class Screen extends JPanel{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0,0,getWidth(),getHeight()); 
-        for(int i=0;i<bolas.size();i++){
-            g2d.setPaint(bolas.get(i).getColor());
-            g2d.fill(bolas.get(i).getGraphic());
+        synchronized(bolas){
+            for(Bola b: bolas){
+                g2d.setPaint(b.getColor());
+                g2d.fill(b.getGraphic());
+            }
         }       
     }   
 }
