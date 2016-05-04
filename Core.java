@@ -8,11 +8,13 @@ public class Core implements Runnable{
     private double startTime;   
     private double lastBall; 
     private double time;
+    private UI ui;
 
-    public Core(Screen s,int i){
+    public Core(UI u,Screen s,int i){
         tela = s;
         id = i;
         time = 0.5;
+        ui = u;
     }
     
     @Override
@@ -28,7 +30,7 @@ public class Core implements Runnable{
             if((thisTime - lastBall)/10000 > time+(id)  ){ 
                 System.out.println("Criado bola em: "+ (thisTime - lastBall)/1000);
                 System.out.println("Thread: "+thread.getName());
-                Bola b = new Bola(3,800,400);
+                Bola b = new Bola(800,400,tela,this);
                 bolas.add(b);
                 tela.addToFrame(b);
                 lastBall = thisTime;
@@ -39,6 +41,10 @@ public class Core implements Runnable{
 
             for(Bola b: bolas){
                 b.moveBall();
+                if(!b.checkLife()){
+                    ui.loseLife();
+                    b.destroyBall();
+                }
             }     
             
             try{
@@ -47,5 +53,8 @@ public class Core implements Runnable{
                 e.printStackTrace();
             }
         }
+    }
+    public void removeBola(Bola b){
+        bolas.remove(b);
     }
 }

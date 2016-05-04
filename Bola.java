@@ -12,19 +12,25 @@ public class Bola{
     private  boolean direction;
     private Color color;
     private boolean alive;
-    private int vidas;
     private Ellipse2D bolaG;
     private double speedX;
     private double speedY;
+    private int sX;
+    private int sY;
+    private Screen tela;
+    private Core myCore;
 
-    public Bola (int lifes,int screenX, int screenY){
+    public Bola (int screenX, int screenY, Screen t, Core c){
         Random r = new Random();
+        myCore = c;
+        tela = t;
+        sX = screenX;
+        sY = screenY;
         x =  (r.nextDouble()*screenX/3)+ (r.nextDouble()*screenX/2) ;
         y =  (r.nextDouble()*screenY/3)+ (r.nextDouble()*screenY/2);
         direction = r.nextBoolean();
         setColor();
         alive = true;
-        vidas = lifes;
         speedX = r.nextDouble()/2 ;
         speedY = r.nextDouble()/2;
         System.out.println("velocidade: " +speedX);
@@ -51,9 +57,9 @@ public class Bola{
     
    
     public boolean checkLife(){
-        if(vidas <=0)
-            return false;
-        return true;
+        if((x > sX || x < 0)||(y > sY || y< 0))
+            return false;           
+        return true;    
     }
     
     public void destroyBall(){
@@ -61,6 +67,8 @@ public class Bola{
         y = 0;
         speedX = 0;
         speedY = 0;
+        myCore.removeBola(this);
+        tela.removeBola(this);
     } 
   
     public Ellipse2D getGraphic(){

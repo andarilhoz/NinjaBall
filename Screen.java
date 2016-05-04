@@ -21,10 +21,12 @@ public class Screen extends JPanel{
     private int screenY;
     private JFrame frame;
     private List<Bola> bolas = Collections.synchronizedList(new LinkedList());    
+    private UI ui;
 
-    public Screen(int screenSizeX,int screenSizeY){
+    public Screen(int screenSizeX,int screenSizeY,UI u){
         screenX = screenSizeX;
         screenY = screenSizeY;
+        ui = u;
         frame = new JFrame("GameBalls");
         frame.setSize(screenSizeX,screenSizeY);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,11 +41,16 @@ public class Screen extends JPanel{
                     for(Bola s: bolas){
                         if(s.getGraphic().contains(me.getPoint())){
                             s.destroyBall();
+                            ui.addPoints();
                         }
                     }
                 }
             }
         });
+    }
+    
+    public void removeBola(Bola b){
+        bolas.remove(b);
     }
 
     public void addToFrame(Bola b){
@@ -52,7 +59,8 @@ public class Screen extends JPanel{
   
     public void addJPanel(JPanel jp){
         frame.add(jp);
-    } 
+    }
+
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -65,6 +73,9 @@ public class Screen extends JPanel{
                 g2d.setPaint(b.getColor());
                 g2d.fill(b.getGraphic());
             }
-        }       
+       }
+       g2d.setPaint(Color.WHITE);
+       g2d.drawString("Vidas: "+ ui.getLifes(),ui.x,ui.y);
+       g2d.drawString("Pontos: "+ ui.getPoints(),ui.x+100,ui.y);
     }   
 }
