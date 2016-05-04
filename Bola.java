@@ -14,7 +14,8 @@ public class Bola{
     private boolean alive;
     private int vidas;
     private Ellipse2D bolaG;
-    private double speed = 0.05;
+    private double speedX;
+    private double speedY;
 
     public Bola (int lifes,int screenX, int screenY){
         Random r = new Random();
@@ -24,24 +25,27 @@ public class Bola{
         setColor();
         alive = true;
         vidas = lifes;
+        speedX = r.nextDouble()/2 ;
+        speedY = r.nextDouble()/2;
+        System.out.println("velocidade: " +speedX);
         bolaG = new Ellipse2D.Double(this.x,this.y,30,30);
     }
 
     public void moveBall(){
         if(direction)
-            x+=speed;
+            x+=speedX;
         else
-            x-=speed;
-        y+=speed;
+            x-=speedX;
+        y+=speedY;
         bolaG.setFrame(this.x,this.y,30,30);
     }
     
     
     public void setColor(){
-        Random color = new Random();
-        int R = color.nextInt(256);
-        int G = color.nextInt(256);
-        int B = color.nextInt(256);
+        Random cr = new Random();
+        int R = cr.nextInt(256);
+        int G = cr.nextInt(256);
+        int B = cr.nextInt(256);
         color = new Color(R,G,B);
     }
     
@@ -55,7 +59,8 @@ public class Bola{
     public void destroyBall(){
         x = 0;
         y = 0;
-        speed = 0;
+        speedX = 0;
+        speedY = 0;
     } 
   
     public Ellipse2D getGraphic(){

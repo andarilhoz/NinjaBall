@@ -12,7 +12,7 @@ public class Core implements Runnable{
     public Core(Screen s,int i){
         tela = s;
         id = i;
-        time = 1.0;
+        time = 0.5;
     }
     
     @Override
@@ -25,15 +25,15 @@ public class Core implements Runnable{
             
         while(true){
             long thisTime = System.currentTimeMillis();
-            System.out.println(String.valueOf((thisTime - lastBall)/10000));
-            if((thisTime - lastBall)/10000 > time  ){ 
+            if((thisTime - lastBall)/10000 > time+(id)  ){ 
                 System.out.println("Criado bola em: "+ (thisTime - lastBall)/1000);
                 System.out.println("Thread: "+thread.getName());
                 Bola b = new Bola(3,800,400);
                 bolas.add(b);
                 tela.addToFrame(b);
                 lastBall = thisTime;
-                time -= 0.05;
+                if(time > 0.10)
+                    time -= 0.01;
             }
 
 
