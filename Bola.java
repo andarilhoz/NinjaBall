@@ -9,32 +9,31 @@ import java.util.Random;
 public class Bola{
     public double x;
     public double y;
-    private int range; 
-    public  boolean direction;
+    private  boolean direction;
     private Color color;
     private boolean alive;
-    public int vidas;
+    private int vidas;
     private Ellipse2D bolaG;
     private double speed = 0.05;
 
     public Bola (int lifes,int screenX, int screenY){
         Random r = new Random();
-        this.x =  (r.nextDouble()*screenX/3)+ (r.nextDouble()*screenX/2) ;
-        this.y =  (r.nextDouble()*screenY/3)+ (r.nextDouble()*screenY/2);
-        this.direction = r.nextBoolean();
-        this.setColor();
-        this.alive = true;
-        this.vidas = lifes;
-        this.bolaG = new Ellipse2D.Double(this.x,this.y,30,30);
+        x =  (r.nextDouble()*screenX/3)+ (r.nextDouble()*screenX/2) ;
+        y =  (r.nextDouble()*screenY/3)+ (r.nextDouble()*screenY/2);
+        direction = r.nextBoolean();
+        setColor();
+        alive = true;
+        vidas = lifes;
+        bolaG = new Ellipse2D.Double(this.x,this.y,30,30);
     }
 
     public void moveBall(){
-        if(this.direction)
-            this.x+=speed;
+        if(direction)
+            x+=speed;
         else
-            this.x-=speed;
-        this.y+=speed;
-        this.bolaG.setFrame(this.x,this.y,30,30);
+            x-=speed;
+        y+=speed;
+        bolaG.setFrame(this.x,this.y,30,30);
     }
     
     
@@ -43,26 +42,26 @@ public class Bola{
         int R = color.nextInt(256);
         int G = color.nextInt(256);
         int B = color.nextInt(256);
-        this.color = new Color(R,G,B);
+        color = new Color(R,G,B);
     }
     
    
     public boolean checkLife(){
-        if(this.vidas <=0)
+        if(vidas <=0)
             return false;
         return true;
     }
     
     public void destroyBall(){
-        this.x = 0;
-        this.y = 0;
-        this.speed = 0;
+        x = 0;
+        y = 0;
+        speed = 0;
     } 
   
     public Ellipse2D getGraphic(){
-        return this.bolaG;
+        return bolaG;
     } 
     public Color getColor(){
-        return this.color;
+        return color;
     }
 }

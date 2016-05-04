@@ -1,24 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 public class Game {
-    private static ArrayList<Bola> bolas = new ArrayList<Bola>();
-    private static Screen tela;
-    private static int quantidadeBolas = 8;
-    private static int screenX = 800;
-    private static int screenY = 400;
-    private static int cores = Runtime.getRuntime().availableProcessors();
-    private static int bolaId;
-
     public static void main (String args[])throws InterruptedException {
         System.out.println("Game Initialized");
+        int cores = Runtime.getRuntime().availableProcessors();
         System.out.println("Processadores disponiveis: "+ String.valueOf(cores));
-        
-        int bolasPorCores = quantidadeBolas/cores;
-
             
-        tela = new Screen(screenX,screenY);
+        Screen tela = new Screen(800,400);
         tela.addJPanel(tela);
-        
                
         ArrayList<Thread> th = new ArrayList<Thread>();
  
