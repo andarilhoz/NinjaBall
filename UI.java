@@ -4,6 +4,7 @@ public class UI{
     public int x = 50;
     public int y = 20;
     private int pointsPorBola = 5;    
+    private boolean alive = true;
 
     public UI(){
         
@@ -21,4 +22,11 @@ public class UI{
     public void loseLife(){
         lifes--;
     } 
+    public void gameOver(){
+        System.out.println("Você perdeu!");
+        alive = false;
+    }
+    public boolean getAlive(){
+        return alive;
+    }
 }
