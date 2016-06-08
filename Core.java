@@ -1,3 +1,12 @@
+/**
+* Essa classe é a Thread principal, onde irá gerar as bolas,
+* checar se elas ainda estão vivas e atualizar elas na tela
+* é usado uma synchronizedList junto com o metodo synchronized 
+* para controlar o acesso a lista que contem todas as bolas ativas
+*/
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.text.DecimalFormat;

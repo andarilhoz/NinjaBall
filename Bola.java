@@ -1,3 +1,11 @@
+/**
+* Esta classe é a que define as bolas do jogo, recebe a imagem, 
+* posição, a thread que está e a tela do jogo
+* Aqui também tem a função para checar se a bola saiu ou não da tela 
+* para posteriormente printar ou não ela
+*/
+
+
 import java.awt.Color;
 import java.awt.Graphics; import java.awt.Graphics2D;
 import java.awt.RenderingHints;
