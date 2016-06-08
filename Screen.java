@@ -4,6 +4,8 @@ import java.awt.RenderingHints;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.awt.Composite;
+import java.awt.AlphaComposite;
 
 import java.io.IOException;
 
@@ -29,17 +31,18 @@ public class Screen extends JPanel{
     private JFrame frame;
     private List<Bola> bolas = Collections.synchronizedList(new ArrayList());    
     private UI ui;
+    private Images imgs;
 
-    public Screen(int screenSizeX,int screenSizeY,UI u){
+    public Screen(int screenSizeX,int screenSizeY,UI u,Images img){
         screenX = screenSizeX;
         screenY = screenSizeY;
         ui = u;
+        imgs = img;
         frame = new JFrame("GameBalls");
         frame.setSize(screenSizeX,screenSizeY);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         System.out.println("Screen iniciada");
-
         addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent me){
@@ -79,10 +82,12 @@ public class Screen extends JPanel{
     }
 
     public void removeAllBolas(){
-        Iterator<Bola> bo = bolas.iterator();
-        while(bo.hasNext()){
-            Bola b = bo.next();
-            bo.remove(); 
+        synchronized(bolas){
+            Iterator<Bola> bo = bolas.iterator();
+            while(bo.hasNext()){
+                Bola b = bo.next();
+                bo.remove(); 
+            }
         }
     }
 
@@ -103,11 +108,21 @@ public class Screen extends JPanel{
             }
        }
        g2d.setPaint(Color.WHITE);
-       g2d.drawString("Vidas: "+ ui.getLifes(),ui.x,ui.y);
-       g2d.drawString("Pontos: "+ ui.getPoints(),ui.x+100,ui.y);
-       if(!ui.getAlive()){
-           g2d.setFont(new Font(g2d.getFont().getFontName(),Font.PLAIN, 30));
-           g2d.drawString("Você perdeu!",ui.x+250,ui.y+180);
+       Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .75f);
+       g2d.setComposite(c);
+       g2d.setFont(new Font("Future Ex",Font.PLAIN, 25));
+       g2d.drawString("Energy ",ui.x,ui.y+10);
+       for(int en = 0; en < ui.getLifes();en++ ){
+            g2d.drawImage(imgs.getEnergy(),ui.x+(en*22)+105,ui.y-5,null);
        }
+       g2d.drawString(ui.getPoints()+"pts",ui.x+600,ui.y+10);
+       Composite co = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .4f);
+       g2d.setComposite(co);
+       g2d.drawString("Do not touch this line",ui.x+150,ui.y+320);
+       if(!ui.getAlive()){
+           g2d.setFont(new Font(g2d.getFont().getFontName(),Font.PLAIN, 60));
+           g2d.drawString("Voce perdeu!",ui.x+100,ui.y+180);
+       }
+       g2d.drawImage(imgs.getLinha(),0,350,null);
     }   
 }

@@ -48,8 +48,8 @@ public class Core implements Runnable{
                     time -= 0.01;
             }
 
+                synchronized(bolas){
                 Iterator<Bola> bo = bolas.iterator();
-                synchronized(bo){
                 while(bo.hasNext()){
                     Bola b = bo.next();     
                     b.moveBall();
