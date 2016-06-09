@@ -1,3 +1,7 @@
+/**
+* Esta classe controla a UI do jogo, como vidas e pontuação
+*/
+
 public class UI{
     private int lifes = 5;
     private int points;
