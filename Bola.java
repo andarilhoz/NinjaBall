@@ -28,6 +28,7 @@ public class Bola{
     private Screen tela;
     private Core myCore;
 
+    //Controlador da natalidade da bola
     public Bola (int screenX, int screenY, Screen t, Core c, BufferedImage cor){
         Random r = new Random();
         color = cor;
@@ -43,30 +44,37 @@ public class Bola{
         bolaG = new Ellipse2D.Double(x,y,50,50);
     }
 
+    //Controlador de movimento da bola
     public void moveBall(){
         synchronized(this){
             y+=speedY;
             bolaG.setFrame(this.x,this.y,50,50);
         }
     }
-   
+
+    //Controle de status da energia do jogador
     public boolean checkLife(){
         if((x > sX || x < 0)||(y > sY || y< -11))
             return false;           
         return true;    
     }
     
+    //Remove a bola da tela quando ela é atingida pelo clic
     public void destroyBall(){
         tela.removeBola(this);
     }
     
+    //Remove a bola da lista e da thread
     public void removeFromCore(){
         myCore.removeBola(this);
     }
     
+    //Controla a posição da bola
     public Ellipse2D getGraphic(){
         return bolaG;
     } 
+
+    //Pega a imagem da bola
     public BufferedImage getColor(){
         return color;
     }

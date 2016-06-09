@@ -41,6 +41,7 @@ public class Screen extends JPanel{
     private UI ui;
     private Images imgs;
 
+    //Set da tela do jogo
     public Screen(int screenSizeX,int screenSizeY,UI u,Images img){
         screenX = screenSizeX;
         screenY = screenSizeY;
@@ -53,7 +54,7 @@ public class Screen extends JPanel{
         System.out.println("Screen iniciada");
         addMouseListener(new MouseAdapter(){
             @Override
-            public void mouseClicked(MouseEvent me){
+            public void mouseClicked(MouseEvent me){//Set do evento de mouse
                 super.mouseClicked(me);
                 synchronized(bolas){
                     Iterator<Bola> bo = bolas.iterator();
@@ -72,6 +73,7 @@ public class Screen extends JPanel{
         });
     }
     
+    //Remove bola da tela
     public void removeBola(Bola b){
         Iterator<Bola> bo = bolas.iterator();
         while(bo.hasNext()){
@@ -81,14 +83,17 @@ public class Screen extends JPanel{
         }
     }
 
+    //Adiciona bola
     public void addToFrame(Bola b){
         bolas.add(b);
     }
   
+    //Adiciona a tela
     public void addJPanel(JPanel jp){
         frame.add(jp);
     }
 
+    //Remove todas as bolas quando o jogador perde o jogo
     public void removeAllBolas(){
         synchronized(bolas){
             Iterator<Bola> bo = bolas.iterator();
@@ -100,7 +105,7 @@ public class Screen extends JPanel{
     }
 
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g){//Pinta os componentes da interface
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
@@ -118,19 +123,19 @@ public class Screen extends JPanel{
        g2d.setPaint(Color.WHITE);
        Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .75f);
        g2d.setComposite(c);
-       g2d.setFont(new Font("Future Ex",Font.PLAIN, 25));
-       g2d.drawString("Energy ",ui.x,ui.y+10);
+       g2d.setFont(new Font("Future Ex",Font.PLAIN, 25));//Set da fonte a ser usada nos textos da interface
+       g2d.drawString("Energy ",ui.x,ui.y+10);//Pinta o texto da barra de energia
        for(int en = 0; en < ui.getLifes();en++ ){
             g2d.drawImage(imgs.getEnergy(),ui.x+(en*22)+105,ui.y-5,null);
        }
-       g2d.drawString(ui.getPoints()+"pts",ui.x+600,ui.y+10);
+       g2d.drawString(ui.getPoints()+"pts",ui.x+600,ui.y+10);//Pinta o texto da pontuação
        Composite co = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .4f);
        g2d.setComposite(co);
-       g2d.drawString("Do not touch this line",ui.x+150,ui.y+320);
+       g2d.drawString("Do not touch this line",ui.x+150,ui.y+320);//Pinta o texto da instrução do jogo
        if(!ui.getAlive()){
            g2d.setFont(new Font(g2d.getFont().getFontName(),Font.PLAIN, 60));
-           g2d.drawString("Voce perdeu!",ui.x+100,ui.y+180);
+           g2d.drawString("Voce perdeu!",ui.x+100,ui.y+180);//Pinta a notificação de derrota quando ojogador perde
        }
-       g2d.drawImage(imgs.getLinha(),0,350,null);
+       g2d.drawImage(imgs.getLinha(),0,350,null);//Pinta a linha na interface
     }   
 }
