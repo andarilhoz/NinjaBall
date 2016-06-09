@@ -1,3 +1,8 @@
+/**
+* Filewalker percorre todos arquivos de um path 
+* e retorna uma linkedlist com o path definitivo
+*/
+
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;

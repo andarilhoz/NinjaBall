@@ -1,3 +1,9 @@
+/**
+* Classe Main do jogo, aqui são iniciadas todas as Threads
+* Primeiro as Threads de importação com o path de cada pasta dentro de Assets
+* posteriormente a Thread principal Core que controla o jogo por si
+*/
+
 import java.util.ArrayList;
 import java.util.List;
 

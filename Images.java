@@ -1,3 +1,8 @@
+/**
+* Esta classe apenas armazena e disponibiliza os Assets, imagens e fontes
+*/
+
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.Font;

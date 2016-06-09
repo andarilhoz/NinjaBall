@@ -1,3 +1,9 @@
+/**
+* Esta classe busca as imagens e fontes e faz o import de cada uma
+* mandando posteriormente para a classe Imagens
+*/
+
+
 import java.io.IOException;
 import java.awt.GraphicsEnvironment;
 import javax.imageio.ImageIO;

@@ -1,3 +1,11 @@
+/**
+* Esta classe controla a tela do jogo, faz de fato o 
+* desenho das imagens das bolas, da GUI, e toda a parte grafica
+* essa classe também é usada para checar os cliques na tela para 
+* destruir as bolas 
+*/
+
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
